@@ -1,0 +1,74 @@
+{
+  "name": "talentflow-jobs-board",
+  "private": false,
+  "version": "1.0.0",
+  "description": "A modern, full-featured jobs board built with React, Vite, and Tailwind CSS",
+  "keywords": [
+    "react",
+    "vite",
+    "tailwind",
+    "jobs-board",
+    "msw",
+    "drag-drop",
+    "typescript"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/talentflow-jobs-board.git"
+  },
+  "homepage": "https://github.com/yourusername/talentflow-jobs-board#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/talentflow-jobs-board/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "msw:init": "npx msw init public/ --save"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.1",
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/sortable": "^8.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "localforage": "^1.10.0",
+    "lucide-react": "^0.294.0",
+    "clsx": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8",
+    "eslint": "^8.55.0",
+    "globals": "^15.9.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "tailwindcss": "^3.3.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "vitest": "^1.0.4",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/user-event": "^14.5.1",
+    "jsdom": "^23.0.1",
+    "msw": "^2.0.11",
+    "@playwright/test": "^1.40.1"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}
