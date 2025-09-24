@@ -24,6 +24,14 @@ export function useJobs({
 
       const response = await fetch(`/api/jobs?${params}`);
 
+      // Check if we got HTML instead of JSON (MSW not working)
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("text/html")) {
+        throw new Error(
+          "MSW is not intercepting requests. Please refresh the page and check the console for MSW startup messages."
+        );
+      }
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to fetch jobs");
@@ -33,6 +41,7 @@ export function useJobs({
       setData(result);
     } catch (err) {
       setError(err);
+      console.error("Error fetching jobs:", err);
     } finally {
       setIsLoading(false);
     }

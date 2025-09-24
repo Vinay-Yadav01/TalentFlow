@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MSW Debug - TalentFlow</title>
+  </head>
+  <body>
+    <h1>MSW Debug Page</h1>
+    <div id="status">Loading...</div>
+    <div id="test-result">Testing API...</div>
+
+    <script>
+      // Test MSW status
+      async function testMSW() {
+        const statusDiv = document.getElementById("status");
+        const testDiv = document.getElementById("test-result");
+
+        // Check if MSW service worker is registered
+        if ("serviceWorker" in navigator) {
+          const registrations =
+            await navigator.serviceWorker.getRegistrations();
+          const mswWorker = registrations.find((reg) =>
+            reg.scope.includes("mockServiceWorker")
+          );
+
+          if (mswWorker) {
+            statusDiv.innerHTML = `<span style="color: green;">✓ MSW Service Worker found: ${mswWorker.scope}</span>`;
+          } else {
+            statusDiv.innerHTML = `<span style="color: red;">✗ No MSW Service Worker found</span>`;
+          }
+        } else {
+          statusDiv.innerHTML = `<span style="color: red;">✗ Service Worker not supported</span>`;
+        }
+
+        // Test API call
+        try {
+          const response = await fetch("/api/jobs");
+          const contentType = response.headers.get("content-type");
+
+          if (response.ok) {
+            if (contentType && contentType.includes("application/json")) {
+              const data = await response.json();
+              testDiv.innerHTML = `<span style="color: green;">✓ API working - Got ${
+                data.jobs ? data.jobs.length : 0
+              } jobs</span>`;
+            } else {
+              testDiv.innerHTML = `<span style="color: orange;">⚠ API returned non-JSON: ${contentType}</span>`;
+            }
+          } else {
+            const text = await response.text();
+            testDiv.innerHTML = `<span style="color: red;">✗ API failed (${
+              response.status
+            }): ${text.substring(0, 100)}...</span>`;
+          }
+        } catch (error) {
+          testDiv.innerHTML = `<span style="color: red;">✗ API error: ${error.message}</span>`;
+        }
+      }
+
+      // Run test after page loads
+      setTimeout(testMSW, 1000);
+    </script>
+  </body>
+</html>

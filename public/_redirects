@@ -1,0 +1,7 @@
+# Netlify Configuration
+
+## SPA Redirect
+/*    /index.html   200
+
+## API Routes - Since we're using MSW, we need to ensure the service worker handles these
+/api/*    /index.html   200
